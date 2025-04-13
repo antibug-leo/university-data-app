@@ -1,0 +1,41 @@
+.homeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.searchBox {
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.resultsTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.resultsTable th,
+.resultsTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.resultsTable th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+.clearFiltersButton {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.clearFiltersButton:hover {
+  background-color: #005bb5;
+}
