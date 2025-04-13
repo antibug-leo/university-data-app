@@ -62,8 +62,12 @@ const MainPage = () => {
   }, [debouncedSearchWord, country, currentPage, itemsPerPage]);
 
   const handleToggleFavorite = async (id: number) => {
+    const startTime = performance.now();
     try {
       await toggleFavorite(id.toString());
+      const endTime = performance.now();
+      setApiResTime(endTime - startTime);
+      setApiResCode(200);
       setUniversities((prevUniversities) =>
         prevUniversities.map((university) =>
           university._id === id

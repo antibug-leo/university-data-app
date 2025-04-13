@@ -1,13 +1,12 @@
 # University Data App
 
-The **University Data App** is a web application that allows users to search for universities, view details, and manage their favorite universities. The app is built using modern web technologies and provides a responsive and user-friendly interface.
+The **University Data App** is a web application built with Next.js that allows users to search for universities, view details, and manage their favorite universities. The app is connected to a MongoDB database and provides a responsive and user-friendly interface.
 
 ---
 
 ## Features
 
 - **Search Universities**: Search for universities by name and country.
-- **View Details**: View university details such as name, state/province, and website.
 - **Manage Favorites**: Add or remove universities from your favorites list.
 - **Pagination**: Navigate through large datasets with pagination.
 - **Responsive Design**: Optimized for both desktop and mobile devices.
@@ -17,10 +16,25 @@ The **University Data App** is a web application that allows users to search for
 ## Technologies Used
 
 - **Frontend**: React, Next.js, TypeScript, Tailwind CSS
-- **API**: Fetch API for data retrieval
+- **Backend**: Next.js API routes
+- **Database**: MongoDB
 - **State Management**: React hooks (`useState`, `useEffect`, `useCallback`)
 - **Styling**: Tailwind CSS for responsive and modern UI
 - **Utilities**: Debouncing for search optimization
+
+---
+
+## Project Structure
+
+```
+src/
+├── components/          # Reusable UI components (e.g., UniversityTable, Pagination)
+├── container/           # Main pages (e.g., MainPage, FavoritesPage)
+├── pages/               # Next.js pages (_app.tsx, index.tsx, API routes)
+├── styles/              # Global CSS styles
+├── utils/               # Utility functions and types
+└── public/              # Static assets
+```
 
 ---
 
@@ -52,13 +66,22 @@ npm install
    mongod
    ```
 
-2. Import the university data into the database:
-   - Update the MongoDB connection URI in `src/utils/importJSON.ts` if necessary.
-   - Run the import script:
+2. Create a `.env` file in the root of the project and add the following environment variables:
+
+   ```env
+   MONGODB_URI=mongodb://localhost:27017
+   MONGODB_DB_NAME=universityDB
+   MONGODB_COLLECTION=universities
+   ```
+
+3. Seed the database using `seed.ts`:
+   - The `seed.ts` script is located in the `src/utils` directory and is used to populate the database with initial data.
+   - To run the script, use the following commands:
      ```bash
-     npx ts-node src/utils/importJSON.ts
+     npm run preseed
+     npm run seed
      ```
-   - This will load the data into the `universityDB` database in the `universities` collection.
+   - This will populate the `universityDB` database in the `universities` collection with sample data.
 
 ---
 
@@ -94,7 +117,34 @@ npm start
 
 ---
 
-### Docker Instructions
+### API Endpoints
+
+The app interacts with the following API endpoints:
+
+- **Fetch Universities**: `/api/main?country={country}&search={search}&page={page}&limit={limit}`
+- **Toggle Favorite**: `/api/main` (POST)
+- **Fetch Favorites**: `/api/main?type=favorites`
+
+---
+
+### How to Use
+
+1. **Search for Universities**:
+
+   - Use the search bar to find universities by name.
+   - Filter results by selecting a country from the dropdown.
+
+2. **Manage Favorites**:
+
+   - Click the star icon to add or remove universities from your favorites list.
+   - Navigate to the "Favorites" page to view your saved universities.
+
+3. **Pagination**:
+   - Use the pagination controls to navigate through the list of universities.
+
+---
+
+### Docker Instructions (Optional)
 
 To run the application using Docker, follow these steps:
 
@@ -115,41 +165,6 @@ To run the application using Docker, follow these steps:
    ```
    http://localhost:3000
    ```
-
----
-
-## Folder Structure
-
-```
-src/
-├── components/          # Reusable UI components (e.g., UniversityTable, Pagination)
-├── container/           # Main pages (e.g., MainPage, FavoritesPage)
-├── pages/               # Next.js pages (_app.tsx, index.tsx)
-├── styles/              # Global CSS styles
-├── utils/               # Utility functions and types
-└── public/              # Static assets
-```
-
----
-
-## How to Use
-
-1. **Search for Universities**:
-
-   - Use the search bar to find universities by name.
-   - Filter results by selecting a country from the dropdown.
-
-2. **View University Details**:
-
-   - View details such as the university's name, state/province, and website.
-
-3. **Manage Favorites**:
-
-   - Click the star icon to add or remove universities from your favorites list.
-   - Navigate to the "Favorites" page to view your saved universities.
-
-4. **Pagination**:
-   - Use the pagination controls to navigate through the list of universities.
 
 ---
 
