@@ -1,10 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { MongoClient, ObjectId } from "mongodb";
 
-// const uri =  "mongodb+srv://antibugleo:sh123qwe%21%40%23QWE@cluster0.nktihja.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-const uri = "mongodb://mongo:27017";
-const dbName = "universityDB";
-const collection_uni = "universities";
+const uri = process.env.MONGODB_URI || "mongodb://localhost:27017";
+const dbName = process.env.MONGODB_DB_NAME || "universityDB";
+const collection_uni = process.env.MONGODB_COLLECTION || "universities";
 
 export default async function handler(
   req: NextApiRequest,
