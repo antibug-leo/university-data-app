@@ -1,6 +1,6 @@
 # University Data App
 
-The **University Data App** is a web application built with Next.js that allows users to search for universities, view details, and manage their favorite universities. The app is connected to a MongoDB database and provides a responsive and user-friendly interface.
+The **University Data App** is a web application built with Next.js that allows users to search for universities, and manage their favorite universities. The app is connected to a MongoDB database and provides a responsive and user-friendly interface.
 
 ---
 
@@ -33,7 +33,6 @@ src/
 ├── pages/               # Next.js pages (_app.tsx, index.tsx, API routes)
 ├── styles/              # Global CSS styles
 ├── utils/               # Utility functions and types
-└── public/              # Static assets
 ```
 
 ---
@@ -130,17 +129,20 @@ The app interacts with the following API endpoints:
 ### How to Use
 
 1. **Search for Universities**:
+   ![Result Web Page](./src/assets/main.png)
 
    - Use the search bar to find universities by name.
    - Filter results by selecting a country from the dropdown.
 
 2. **Manage Favorites**:
+   ![Result Web Page](./src/assets/favorite.png)
 
    - Click the star icon to add or remove universities from your favorites list.
    - Navigate to the "Favorites" page to view your saved universities.
 
-3. **Pagination**:
-   - Use the pagination controls to navigate through the list of universities.
+3. **Responsive Design**:
+
+   ![Result Web Page](./src/assets/responsive.png)
 
 ---
 
