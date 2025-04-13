@@ -7,7 +7,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "preseed": "tsc ./src/utils/seed.ts",
+    "seed": "node ./src/utils/seed.js"
   },
   "keywords": [
     "nextjs",
@@ -25,18 +27,17 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "tailwindcss": "^4.1.3",
+    "postcss": "^8.5.3",
+    "@tailwindcss/postcss": "^4.1.3"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.3",
     "@types/node": "22.14.0",
     "@types/react": "19.1.0",
-    "@types/tailwindcss": "^3.1.0",
     "autoprefixer": "^10.4.21",
     "eslint": "latest",
     "eslint-config-next": "latest",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^4.1.3",
     "typescript": "latest",
     "mongodb": "^6.15.0"
   }
