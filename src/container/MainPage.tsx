@@ -48,13 +48,13 @@ const MainPage = () => {
         );
         const endTime = performance.now();
         setApiResTime(endTime - startTime);
-        setApiResCode(200); // Assuming success response
+        setApiResCode(200);
         setUniversities(universities);
         setTotalResults(total);
       } catch (error: any) {
         const endTime = performance.now();
         setApiResTime(endTime - startTime);
-        setApiResCode(error.response?.status || 500); // Capture error status
+        setApiResCode(error.response?.status || 500);
         console.error("Error fetching universities:", error);
       }
     };
