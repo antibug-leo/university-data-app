@@ -12,7 +12,7 @@ const UniversityTable: React.FC<UniversityTableProps> = ({
   onToggleFavorite,
 }) => {
   return (
-    <div className="flex items-center justify-center w-full min-h-[400px]">
+    <div className="flex items-center justify-center w-full">
       <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
         <thead className="hidden lg:table-header-group">
           <tr className="bg-blue-100 text-blue-800">

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import React, { useState, useEffect, useCallback } from "react";
+import { fetchUniversities, toggleFavorite } from "@/pages/api/api_event";
 import { University } from "@/utils/type";
 import { countryList } from "../utils/countryList";
 import UniversityTable from "./component/UniversityTable";
@@ -12,11 +13,11 @@ const MainPage = () => {
   const [country, setCountry] = useState("Canada");
   const [searchWord, setSearchWord] = useState("");
   const [debouncedSearchWord, setDebouncedSearchWord] = useState("");
-  const [apiResTime, setApiResTime] = useState<number | null>(null);
-  const [apiResCode, setApiResCode] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [apiResTime, setApiResTime] = useState<number | null>(null);
+  const [apiResCode, setApiResCode] = useState<number | null>(null);
   const rowOptions = [5, 10, 20, 50];
 
   const debounce = (func: (...args: any[]) => void, delay: number) => {
@@ -39,46 +40,30 @@ const MainPage = () => {
     const loadUniversities = async () => {
       const startTime = performance.now();
       try {
-        const url = `/api/main?country=${encodeURIComponent(
-          country
-        )}&search=${encodeURIComponent(
-          debouncedSearchWord
-        )}&page=${currentPage}&limit=${itemsPerPage}`;
-
-        const response = await fetch(url);
-        const { universities, total } = await response.json();
+        const { universities, total } = await fetchUniversities(
+          country,
+          debouncedSearchWord,
+          currentPage,
+          itemsPerPage
+        );
         const endTime = performance.now();
-
+        setApiResTime(endTime - startTime);
+        setApiResCode(200); // Assuming success response
         setUniversities(universities);
         setTotalResults(total);
+      } catch (error: any) {
+        const endTime = performance.now();
         setApiResTime(endTime - startTime);
-        setApiResCode(response.status);
-      } catch (error) {
+        setApiResCode(error.response?.status || 500); // Capture error status
         console.error("Error fetching universities:", error);
-        setApiResCode(500);
       }
     };
     loadUniversities();
   }, [debouncedSearchWord, country, currentPage, itemsPerPage]);
 
   const handleToggleFavorite = async (id: number) => {
-    const startTime = performance.now();
     try {
-      const response = await fetch("/api/main", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ uni_id: id }),
-      });
-
-      if (!response.ok) {
-        console.error("Failed to toggle favorite:", await response.json());
-        return;
-      }
-      const endTime = performance.now();
-      setApiResTime(endTime - startTime);
-      setApiResCode(response.status);
+      await toggleFavorite(id.toString());
       setUniversities((prevUniversities) =>
         prevUniversities.map((university) =>
           university._id === id
@@ -145,11 +130,11 @@ const MainPage = () => {
             <div className="api-info bg-gray-50 shadow-md rounded-lg p-4 mt-6 text-center">
               <p className="text-gray-600">
                 <strong>API Response Time:</strong>{" "}
-                {apiResTime !== null ? `${apiResTime.toFixed(2)} ms` : ""}
+                {apiResTime !== null ? `${apiResTime.toFixed(2)} ms` : "N/A"}
               </p>
               <p className="text-gray-600">
                 <strong>API Response Code:</strong>{" "}
-                {apiResCode !== null ? apiResCode : ""}
+                {apiResCode !== null ? apiResCode : "N/A"}
               </p>
             </div>
             <div className="mt-6 text-center">
